@@ -7,3 +7,17 @@
 - 需要一些字符串方能(参见第3章)。
 - 需要一个或者两个生成器(参见第9章)。
 - 可能还需要用到re模块(参见第10章)。
+
+# simple.py
+一个最小化的文本处理器，在win下运行
+
+```bat
+./run_simple.bat
+```
+
+或
+
+```sh
+python .\simple.py >test.html
+test.html
+```

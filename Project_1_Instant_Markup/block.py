@@ -31,6 +31,4 @@ if __name__ == '__main__':
     #打开测试文件
     infile=open("input.txt","r")
     #看分块情况
-    for l in blocks(infile):
-        print "-----------block----------------"
-        print l
+    print [s for s in blocks(infile)]
