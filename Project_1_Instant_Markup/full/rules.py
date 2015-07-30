@@ -2,7 +2,7 @@
 
 class Rule:
     """
-    Base class for all rules.
+    所有规则的基类
     """
     def action(self, block, handler):
         handler.start(self.type)
@@ -12,12 +12,12 @@ class Rule:
 
 class HeadingRule(Rule):
     """
-    A heading is a single line that is at most 70 characters and
-    that doesn't end with a colon.
+    标题是独立一行且小于70字的块，也不是以冒号结束。
     """
     type = 'heading'
     def condition(self, block):
         return not '\n' in block and len(block) <= 70 and not block[-1] == ':'
+
 class TitleRule(HeadingRule):
     """
     The title is the first block in the document, provided that it is
