@@ -9,15 +9,30 @@
 - 可能还需要用到re模块(参见第10章)。
 
 ## simple.py
-一个最小化的文本处理器，在win下运行
+一个最小化的文本处理器
 
+运行方式：
+* win：
 ```bat
 ./run_simple.bat
 ```
-
-或
+* \*nux
 
 ```sh
 python ./simple.py > test.html
+test.html
+```
+
+## full
+该目录中为完整实现
+
+运行方式：(在full目录下)
+* win：
+```bat
+./run.bat
+```
+* \*nux
+```sh
+python .\markup.py >test.html
 test.html
 ```
