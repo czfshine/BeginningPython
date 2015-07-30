@@ -9,8 +9,8 @@ class GitHubData:
     数据类
     用来从github下载用户提交次数的数据
     '''
-    def __init__(self,username):
-        self.username=username or "czfshine"
+    def __init__(self,username="czfshine"):
+        self.username=username
         self.commit=[]
     def load(self):
         '''
@@ -20,7 +20,7 @@ class GitHubData:
         '''
         try:
             #尝试从现有数据文件读取
-            f=open("test.dat")
+            f=open(self.username+".dat")
             self.commit=eval(f.read())
             return True
         except:
@@ -43,7 +43,7 @@ class GitHubData:
         将数据保存进文件，防止重复下载数据，提高运行速度
         '''
         try :
-            f=open("test.dat","wb")
+            f=open(self.username+".dat","wb")
             f.write(str(self.commit))
             f.close()
             return True
@@ -61,7 +61,7 @@ class GitHubData:
         清空本地数据文件
         '''
         try:
-            os.remove("./test.dat")
+            os.remove(self.username+".dat")
         except:
             pass
 
