@@ -23,6 +23,30 @@ class Handler:
             return result
         return substitution
 
+def getoutput(filename="temp",tofile=False):
+    '''
+    得到输出函数，
+    如果tofile参数为true，则输出到文件，
+    不然输出到标准输出文件
+    '''
+    if tofile:
+        outfile=open(filename,"wb")
+        def output(data):
+            '''
+            数据统一用这个函数输出到指定文件
+            '''
+            try :
+                outfile.write(str(data))
+            except:
+                pass
+    else:
+        def output(data):
+            '''
+            数据统一用这个函数输出到标准输出文件
+            '''
+            print str(data)
+    return output
+
 class HTMLRenderer(Handler):
     """
     A specific handler used for rendering HTML.
@@ -30,30 +54,32 @@ class HTMLRenderer(Handler):
     Handler's start(), end(), and sub() methods. They implement basic
     markup as used in HTML documents.
     """
+    def __init__(self):
+        self.o=getoutput()
     def start_document(self):
-        print '<html><head><title>...</title></head><body>'
+        self.o('<html><head><title>...</title></head><body>')
     def end_document(self):
-        print '</body></html>'
+        self.o('</body></html>')
     def start_paragraph(self):
-        print '<p>'
+        self.o('<p>')
     def end_paragraph(self):
-        print '</p>'
+        self.o('</p>')
     def start_heading(self):
-        print '<h2>'
+        self.o('<h2>')
     def end_heading(self):
-        print '</h2>'
+        self.o('</h2>')
     def start_list(self):
-        print '<ul>'
+        self.o('<ul>')
     def end_list(self):
-        print '</ul>'
+        self.o('</ul>')
     def start_listitem(self):
-        print '<li>'
+        self.o('<li>')
     def end_listitem(self):
-        print '</li>'
+        self.o('</li>')
     def start_title(self):
-        print '<h1>'
+        self.o('<h1>')
     def end_title(self):
-        print '</h1>'
+        self.o('</h1>')
     def sub_emphasis(self, match):
         return '<em>%s</em>' % match.group(1)
     def sub_url(self, match):
@@ -61,6 +87,6 @@ class HTMLRenderer(Handler):
     def sub_mail(self, match):
         return '<a href="mailto:%s">%s</a>' % (match.group(1), match.group(1))
     def feed(self, data):
-        print data
+        self.o(data)
 
 

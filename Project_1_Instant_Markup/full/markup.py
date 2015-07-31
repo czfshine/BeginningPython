@@ -1,15 +1,13 @@
 # -*- coding: utf-8 -*-
-
 import sys, re
 sys.path.append("../")
 from handlers import *
 from block import *
-
 from rules import *
+
 class Parser:
     """
-    A Parser reads a text file, applying rules and controlling a
-    handler.
+    分析文本
     """
     def __init__(self, handler):
         self.handler = handler
@@ -21,7 +19,7 @@ class Parser:
         def filter(block, handler):
             return re.sub(pattern, handler.sub(name), block)
         self.filters.append(filter)
-        
+
     def parse(self, blocks):
         self.handler.start('document')
         for block in blocks:
@@ -32,7 +30,7 @@ class Parser:
                     last = rule.action(block, self.handler)
                     if last: break
         self.handler.end('document')
-        
+
 class BasicTextParser(Parser):
     """
     A specific Parser that adds rules and filters in its
@@ -48,7 +46,7 @@ class BasicTextParser(Parser):
         self.addFilter(r'\*(.+?)\*', 'emphasis')
         self.addFilter(r'(http://[\.a-zA-Z/]+)', 'url')
         self.addFilter(r'([\.a-zA-Z]+@[\.a-zA-Z]+[a-zA-Z]+)', 'mail')
-        
+
 
 if __name__ == '__main__':
     #打开测试文件
@@ -57,4 +55,3 @@ if __name__ == '__main__':
     handler = HTMLRenderer()
     parser = BasicTextParser(handler)
     parser.parse(Blocks)
-
