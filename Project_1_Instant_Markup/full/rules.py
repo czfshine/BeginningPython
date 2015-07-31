@@ -20,8 +20,7 @@ class HeadingRule(Rule):
 
 class TitleRule(HeadingRule):
     """
-    The title is the first block in the document, provided that it is
-    a heading.
+    题目是第一次个标题
     """
     type = 'title'
     first = True
@@ -32,8 +31,7 @@ class TitleRule(HeadingRule):
         
 class ListItemRule(Rule):
     """
-    A list item is a paragraph that begins with a hyphen. As part of
-    the formatting, the hyphen is removed.
+    列表项
     """
     type = 'listitem'
     def condition(self, block):
@@ -44,11 +42,10 @@ class ListItemRule(Rule):
             handler.feed(item[1:].strip())
             handler.end(self.type)
         return True
+
 class ListRule(ListItemRule):
     """
-    A list begins between a block that is not a list item and a
-    subsequent list item. It ends after the last consecutive list
-    item.
+    列表
     """
     type = 'list'
     inside = False
@@ -64,8 +61,7 @@ class ListRule(ListItemRule):
         return False
 class ParagraphRule(Rule):
     """
-    A paragraph is simply a block that isn't covered by any of the
-    other rules.
+    默认
     """
     type = 'paragraph'
     def condition(self, block):

@@ -7,12 +7,13 @@ from rules import *
 
 class Parser:
     """
-    分析文本
+    文本分析器
     """
     def __init__(self, handler):
         self.handler = handler
         self.rules = []
         self.filters = []
+        
     def addRule(self, rule):
         self.rules.append(rule)
     def addFilter(self, pattern, name):
@@ -21,10 +22,16 @@ class Parser:
         self.filters.append(filter)
 
     def parse(self, blocks):
+        '''
+        开始分析
+        '''
         self.handler.start('document')
+        
         for block in blocks:
+            #先应用过滤器
             for filter in self.filters:
                 block = filter(block, self.handler)
+            #应用规则
             for rule in self.rules:
                 if rule.condition(block):
                     last = rule.action(block, self.handler)
@@ -33,8 +40,7 @@ class Parser:
 
 class BasicTextParser(Parser):
     """
-    A specific Parser that adds rules and filters in its
-    constructor.
+    一个基本的分析器
     """
     def __init__(self, handler):
         Parser.__init__(self, handler)
