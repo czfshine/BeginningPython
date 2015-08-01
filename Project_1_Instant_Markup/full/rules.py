@@ -20,7 +20,7 @@ class HeadingRule(Rule):
 
 class TitleRule(HeadingRule):
     """
-    题目是第一次个标题
+    题目是第一个标题
     """
     type = 'title'
     first = True

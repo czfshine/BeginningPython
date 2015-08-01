@@ -31,11 +31,12 @@ def getoutput(filename="temp",tofile=False):
     '''
     if tofile:
         outfile=open(filename,"wb")
+
         def output(data):
             '''
             数据统一用这个函数输出到指定文件
             '''
-            try :
+            try:
                 outfile.write(str(data))
             except:
                 pass
@@ -47,6 +48,7 @@ def getoutput(filename="temp",tofile=False):
             print str(data)
     return output
 
+
 class HTMLRenderer(Handler):
     """
     A specific handler used for rendering HTML.
@@ -55,38 +57,52 @@ class HTMLRenderer(Handler):
     markup as used in HTML documents.
     """
     def __init__(self):
-        self.o=getoutput()
+        self.o = getoutput()
+
     def start_document(self):
         self.o('<html><head><title>...</title></head><body>')
+
     def end_document(self):
         self.o('</body></html>')
+
     def start_paragraph(self):
         self.o('<p>')
+
     def end_paragraph(self):
         self.o('</p>')
+
     def start_heading(self):
         self.o('<h2>')
+
     def end_heading(self):
         self.o('</h2>')
+
     def start_list(self):
         self.o('<ul>')
+
     def end_list(self):
         self.o('</ul>')
+
     def start_listitem(self):
         self.o('<li>')
+
     def end_listitem(self):
         self.o('</li>')
+
     def start_title(self):
         self.o('<h1>')
+
     def end_title(self):
         self.o('</h1>')
+
     def sub_emphasis(self, match):
         return '<em>%s</em>' % match.group(1)
+
     def sub_url(self, match):
         return '<a href="%s">%s</a>' % (match.group(1), match.group(1))
+
     def sub_mail(self, match):
         return '<a href="mailto:%s">%s</a>' % (match.group(1), match.group(1))
+
     def feed(self, data):
         self.o(data)
-
-

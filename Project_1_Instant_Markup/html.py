@@ -34,18 +34,29 @@ class Tag(list):
         for a in arg: self.addObj(a)
 
     def __iadd__(self, obj):
+        '''
+        自增操作
+        '''
         if isinstance(obj, Tag) and obj.isSeq:
             for o in obj: self.addObj(o)
         else: self.addObj(obj)
         return self
     
     def addObj(self, obj):
+        '''
+        增加子对象
+        '''
         if not isinstance(obj, Tag): obj = str(obj)
+        # 设置id        
         id=self.setID(obj)
+        #以id当做索引        
         setattr(self, id, obj)
         self.append(obj)
 
     def setID(self, obj):
+        '''
+        给每个子对象设置一个id
+        '''
         if isinstance(obj, Tag):
             id = obj.id
             n = len([t for t in self if isinstance(t, Tag) and t.id.startswith(id)])
@@ -147,6 +158,9 @@ class html(Tag):
         for f in arg: self.head += link(rel='stylesheet', type='text/css', href=f)
     
     def printOut(self,file=''):
+        '''
+        输出网页
+        '''
         if file: f = open(file, 'w')
         else: f = stdout
         f.write(_doctype)
